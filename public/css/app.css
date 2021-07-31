@@ -1076,6 +1076,12 @@ select {
 		padding-right: 2rem;
 	}
 }
+#navigation-menu{
+        height: calc(100vh - 4rem);
+    }
+.navigation-link:hover .navigation-submenu{
+        display: block !important;
+    }
 .fixed {
 	position: fixed;
 }
@@ -1240,14 +1246,14 @@ select {
 .h-20 {
 	height: 5rem;
 }
+.h-64 {
+	height: 16rem;
+}
 .h-2 {
 	height: 0.5rem;
 }
 .h-full {
 	height: 100%;
-}
-.h-64 {
-	height: 16rem;
 }
 .min-h-screen {
 	min-height: 100vh;
@@ -1556,10 +1562,6 @@ select {
 .bg-trueGray-700 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(64, 64, 64, var(--tw-bg-opacity));
-}
-.bg-red-500 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(239, 68, 68, var(--tw-bg-opacity));
 }
 .bg-opacity-25 {
 	--tw-bg-opacity: 0.25;
@@ -1945,17 +1947,13 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(17, 24, 39, var(--tw-text-opacity));
 }
-.hover\:text-white:hover {
-	--tw-text-opacity: 1;
-	color: rgba(255, 255, 255, var(--tw-text-opacity));
-}
 .hover\:text-orange-500:hover {
 	--tw-text-opacity: 1;
 	color: rgba(249, 115, 22, var(--tw-text-opacity));
 }
-.hover\:text-red-500:hover {
+.hover\:text-white:hover {
 	--tw-text-opacity: 1;
-	color: rgba(239, 68, 68, var(--tw-text-opacity));
+	color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 .focus\:z-10:focus {
 	z-index: 10;
