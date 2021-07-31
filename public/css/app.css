@@ -1566,6 +1566,9 @@ select {
 .bg-opacity-25 {
 	--tw-bg-opacity: 0.25;
 }
+.bg-opacity-100 {
+	--tw-bg-opacity: 1;
+}
 .object-cover {
 	-o-object-fit: cover;
 	   object-fit: cover;
@@ -1803,6 +1806,10 @@ select {
 .text-red-100 {
 	--tw-text-opacity: 1;
 	color: rgba(254, 226, 226, var(--tw-text-opacity));
+}
+.text-orange-500 {
+	--tw-text-opacity: 1;
+	color: rgba(249, 115, 22, var(--tw-text-opacity));
 }
 .underline {
 	text-decoration: underline;
