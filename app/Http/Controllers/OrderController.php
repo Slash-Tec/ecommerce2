@@ -9,13 +9,8 @@ class OrderController extends Controller
 {
     public function show(Order $order)
     {
-        return view('orders.show', compact('order'));
-    }
-
-    public function payment(Order $order)
-    {
         $items = json_decode($order->content);
 
-        return view('orders.payment', compact('order', 'items'));
+        return view('orders.show', compact('order', 'items'));
     }
 }
