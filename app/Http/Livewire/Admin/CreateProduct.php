@@ -13,7 +13,7 @@ class CreateProduct extends Component
 {
     public $categories, $subcategories = [], $brands = [];
     public $category_id = '', $subcategory_id = '', $brand_id = '';
-    public $name, $slug, $description;
+    public $name, $slug, $description, $price, $quantity;
 
     public function mount()
     {
@@ -29,6 +29,11 @@ class CreateProduct extends Component
         })->get();
 
         $this->reset(['subcategory_id', 'brand_id']);
+    }
+
+    public function getSubcategoryProperty()
+    {
+        return Subcategory::find($this->subcategory_id);
     }
 
     public function updatedName($value){

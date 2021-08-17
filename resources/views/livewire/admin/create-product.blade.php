@@ -66,15 +66,38 @@
         <x-jet-input-error for="description" />
     </div>
 
-    <div class="mb-4">
-        <x-jet-label value="Marca" />
-        <select class="form-control w-full" wire:model="brand_id">
-            <option value="" selected disabled>Seleccione una marca</option>
-            @foreach ($brands as $brand)
-                <option value="{{$brand->id}}">{{$brand->name}}</option>
-            @endforeach
-        </select>
+    <div class="grid grid-cols-2 gap-6 mb-4">
+        <div>
+            <x-jet-label value="Marca" />
+            <select class="form-control w-full" wire:model="brand_id">
+                <option value="" selected disabled>Seleccione una marca</option>
+                @foreach ($brands as $brand)
+                    <option value="{{$brand->id}}">{{$brand->name}}</option>
+                @endforeach
+            </select>
 
-        <x-jet-input-error for="brand_id" />
+            <x-jet-input-error for="brand_id" />
+        </div>
+
+        <div>
+            <x-jet-label value="Precio" />
+            <x-jet-input
+                wire:model="price"
+                type="number"
+                class="w-full"
+                step=".01" />
+            <x-jet-input-error for="price" />
+        </div>
     </div>
+
+    @if ($subcategory_id && !$this->subcategory->color && !$this->subcategory->size)
+        <div>
+            <x-jet-label value="Cantidad" />
+            <x-jet-input
+                wire:model="quantity"
+                type="number"
+                class="w-full" />
+            <x-jet-input-error for="quantity" />
+        </div>
+    @endif
 </div>
