@@ -39,6 +39,18 @@ class EditProduct extends Component
 
     }
 
+    public function updatedCategoryId($value)
+    {
+        $this->subcategories = Subcategory::where('category_id', $value)->get();
+
+        $this->brands = Brand::whereHas('categories', function(Builder $query) use ($value) {
+            $query->where('category_id', $value);
+        })->get();
+
+        $this->product->subcategory_id = '';
+        $this->product->brand_id = '';
+    }
+
     public function getSubcategoryProperty()
     {
         return Subcategory::find($this->product->subcategory_id);
