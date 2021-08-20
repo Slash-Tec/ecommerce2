@@ -58,7 +58,7 @@
 
             <tbody>
             @foreach($productColors as $color)
-                <tr>
+                <tr wire:key="product_color-{{ $color->pivot->id }}">
                     <td class="capitalize px-4 py-2">
                         {{ __(ucfirst($colors->find($color->pivot->color_id)->name)) }}
                     </td>
@@ -66,7 +66,11 @@
                         {{ $color->pivot->quantity }} unidades
                     </td>
                     <td class="px-4 py-2 flex">
-                        <x-jet-secondary-button class="ml-auto mr-2">
+                        <x-jet-secondary-button
+                            class="ml-auto mr-2"
+                            wire:click="edit({{ $color->pivot->id }})"
+                            wire:loading.attr="disabled"
+                            wire:target="edit({{ $color->pivot->id }})">
                             Actualizar
                         </x-jet-secondary-button>
                         <x-jet-danger-button>
