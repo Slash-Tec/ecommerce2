@@ -14,6 +14,8 @@ class ColorProduct extends Component
     public $open = false;
     public $pivot, $pivot_color_id, $pivot_quantity;
 
+    protected $listeners = ['delete'];
+
     protected $rules = [
         'color_id' => 'required',
         'quantity' => 'required|numeric'
@@ -74,6 +76,13 @@ class ColorProduct extends Component
         $this->product = $this->product->fresh();
 
         $this->open = false;
+    }
+
+    public function delete(TbPivot $pivot)
+    {
+        $pivot->delete();
+        $this->product = $this->product->fresh();
+
     }
 
     public function render()
