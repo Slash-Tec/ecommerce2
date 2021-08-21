@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-{{--                @livewire('admin.color-size', ['size' => $size], key('color-size-' . $size->id))--}}
+                @livewire('admin.color-size', ['size' => $size], key('color-size-' . $size->id))
             </li>
         @endforeach
     </ul>
