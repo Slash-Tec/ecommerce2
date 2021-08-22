@@ -27,7 +27,7 @@ class ProductObserver
             foreach ($product->sizes as $size) {
                 $size->delete();
             }
-            
+
         }
     }
 }
