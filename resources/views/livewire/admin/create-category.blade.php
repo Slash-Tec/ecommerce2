@@ -135,9 +135,9 @@
             <div class="space-y-3">
                 <div>
                     @if ($editImage)
-                        <img class="w-full h-64 object-cover object-center" src="{{$editImage->temporaryUrl()}}" alt="">
+                        <img class="w-full h-64 object-cover object-center" src="{{ $editImage->temporaryUrl() }}" alt="">
                     @else
-                        <img class="w-full h-64 object-cover object-center" src="{{Storage::url($editForm['image'])}}" alt="">
+                        <img class="w-full h-64 object-cover object-center" src="{{ Storage::url($editForm['image']) }}" alt="">
                     @endif
                 </div>
 
@@ -194,9 +194,9 @@
         </x-slot>
 
         <x-slot name="footer">
-            {{--<x-jet-danger-button wire:click="update" wire:loading.attr="disabled" wire:target="editImage, update">
+            <x-jet-danger-button wire:click="update" wire:loading.attr="disabled" wire:target="editImage, update">
                 Actualizar
-            </x-jet-danger-button>--}}
+            </x-jet-danger-button>
         </x-slot>
 
     </x-jet-dialog-modal>
