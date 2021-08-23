@@ -109,7 +109,10 @@ class CreateCategory extends Component
 
     public function edit(Category $category)
     {
+        $this->image = rand();
         $this->reset(['editImage']);
+        $this->resetValidation();
+
         $this->category = $category;
 
         $this->editForm['open'] = true;
@@ -137,7 +140,7 @@ class CreateCategory extends Component
 
         if ($this->editImage) {
             Storage::disk('public')->delete($this->editForm['image']);
-            $this->editForm['image'] = $this->editImage->store('categories');
+            $this->editForm['image'] = $this->editImage->store('categories', 'public');
         }
 
         $this->category->update($this->editForm);
