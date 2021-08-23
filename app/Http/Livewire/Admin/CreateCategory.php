@@ -13,7 +13,7 @@ class CreateCategory extends Component
 {
     use WithFileUploads;
 
-    public $brands, $categories, $image;
+    public $brands, $categories, $image, $image2;
     public $category;
 
     public $listeners = ['delete'];
@@ -109,7 +109,7 @@ class CreateCategory extends Component
 
     public function edit(Category $category)
     {
-        $this->image = rand();
+        $this->image2 = rand();
         $this->reset(['editImage']);
         $this->resetValidation();
 
