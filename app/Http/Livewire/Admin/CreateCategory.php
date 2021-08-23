@@ -14,6 +14,8 @@ class CreateCategory extends Component
 
     public $brands, $categories, $image;
 
+    public $listeners = ['delete'];
+
     public $createForm = [
         'name' => null,
         'slug' => null,
@@ -80,6 +82,12 @@ class CreateCategory extends Component
 
         $this->getCategories();
         $this->emit('saved');
+    }
+
+    public function delete(Category $category)
+    {
+        $category->delete();
+        $this->getCategories();
     }
 
     public function render()
