@@ -126,7 +126,6 @@
     </x-jet-action-section>
 
     <x-jet-dialog-modal wire:model="editForm.open">
-
         <x-slot name="title">
             Editar categoría
         </x-slot>
@@ -198,6 +197,5 @@
                 Actualizar
             </x-jet-danger-button>
         </x-slot>
-
     </x-jet-dialog-modal>
 </div>
