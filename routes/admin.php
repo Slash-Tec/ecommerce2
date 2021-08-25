@@ -8,6 +8,7 @@ use App\Http\Livewire\Admin\CreateProduct;
 use App\Http\Livewire\Admin\DepartmentComponent;
 use App\Http\Livewire\Admin\EditProduct;
 use App\Http\Livewire\Admin\ShowCategory;
+use App\Http\Livewire\Admin\ShowCity;
 use App\Http\Livewire\Admin\ShowDepartment;
 use App\Http\Livewire\Admin\ShowProducts;
 use Illuminate\Support\Facades\Route;
@@ -30,3 +31,4 @@ Route::get('brands', BrandComponent::class)->name('admin.brands.index');
 Route::get('departments', DepartmentComponent::class)->name('admin.departments.index');
 Route::get('departments/{department}', ShowDepartment::class)->name('admin.departments.show');
 
+Route::get('cities/{city}', ShowCity::class)->name('admin.cities.show');
