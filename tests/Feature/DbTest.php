@@ -20,6 +20,61 @@ class DbTest extends TestCase
     use RefreshDatabase;
     use DatabaseMigrations;
     use CreateData;
+
+    //Corresponde al ejercicio 3 \/
+    /** @test */
+    public function it_saves_the_shopping_cart_when_user_logs_out()
+    {
+        $user = $this->createUser();
+        $product = $this->createProduct();
+
+        $this->get('/login')->assertSee('Correo electrónico');
+        $credentials = [
+            "email" => $user->email,
+            "password" => '123'
+        ];
+
+        $response = $this->post('/login', $credentials);
+        $response->assertRedirect('/dashboard');
+        $this->assertCredentials($credentials);
+
+        Cart::add([
+            'id' => $product->id,
+            'name' => $product->name,
+            'qty' => '1',
+            'price' => $product->price,
+            'weight' => 550,
+        ]);
+
+        $category = $this->createCategory();
+        $subcategory = $this->createSubcategory();
+        $brand = $category->brands()->create(['name' => 'LG']);
+        $product1 = $this->createCustomProduct('Cascos', $subcategory, $brand, '2');
+        Cart::add([
+            'id' => $product1->id,
+            'name' => $product1->name,
+            'qty' => '2',
+            'price' => $product1->price,
+            'weight' => 550,
+        ]);
+
+        Auth::logout();
+
+        $this->assertDatabaseHas('shoppingcart', ['identifier' => $user->id]);
+
+        $this->get('/login')->assertSee('Correo electrónico');
+
+        $this->post('/login', $credentials);
+
+        $this->get('/shopping-cart')->assertSee($product->name)->assertSee($product1->name)
+            ->assertSee($product->price)
+        ->assertSee($product1->price*2)
+        ->assertSee(1)
+        ->assertSee(2);
+
+
+    }
+    //Corresponde al cierre del ejercicio 3 /\
     //Corresponde al ejercicio 4 \/
     /** @test */
     public function the_stock_changes_when_creating_an_order(){
