@@ -74,7 +74,9 @@ class ColorSize extends Component
 
     public function delete(TbPivot $pivot)
     {
+        ray($pivot);
         $pivot->delete();
+        ray($this);
         $this->size = $this->size->fresh();
     }
 
