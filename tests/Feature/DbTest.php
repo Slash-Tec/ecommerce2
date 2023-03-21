@@ -1,0 +1,117 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Http\Livewire\AddCartItem;
+use App\Http\Livewire\AddCartItemColor;
+use App\Http\Livewire\AddCartItemSize;
+use App\Http\Livewire\CreateOrder;
+use App\Models\Order;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Livewire;
+use Tests\TestCase;
+use Tests\CreateData;
+
+class DbTest extends TestCase
+{
+    use RefreshDatabase;
+    use DatabaseMigrations;
+    use CreateData;
+    //Corresponde al ejercicio 4 \/
+    /** @test */
+    public function the_stock_changes_when_creating_an_order(){
+
+        $user = $this->createUser();
+        $product = $this->createProduct();
+        $this->actingAs($user);
+        Livewire::test(AddCartItem::class, ['product' => $product, 'qty' => 2])
+            ->call('addItem', $product);
+
+        Livewire::test(CreateOrder::class, [
+            'envio_type' => 1,
+            'contact' => 'Salva',
+            'phone' => '42423424'
+        ])
+            ->assertSee($product->name)
+            ->call('create_order');
+
+        $this->assertDatabaseHas('orders', [
+            'user_id' => $user->id,
+            'envio_type' => 1,
+            'contact' => 'Salva',
+            'phone' => '42423424'
+        ]);
+
+        $this->assertDatabaseHas('products', [
+            'quantity' => $product->quantity - 2
+        ]);
+    }
+
+    /** @test */
+    public function the_stock_changes_when_creating_an_order_including_color_size_product(){
+
+        $user = $this->createUser();
+        $product = $this->createColorSizeProduct();
+        $this->actingAs($user);
+        Livewire::test(AddCartItemSize::class, ['product' => $product])
+            ->set('options', ['size_id' => $product->sizes()->first()->id, 'color_id' => $product->colors()->first()->id])
+            ->call('addItem', $product);
+
+        Livewire::test(CreateOrder::class, [
+            'envio_type' => 1,
+            'contact' => 'Salva',
+            'phone' => '42423424'
+        ])
+            ->assertSee($product->name)
+            ->call('create_order');
+
+        $this->assertDatabaseHas('orders', [
+            'user_id' => $user->id,
+            'envio_type' => 1,
+            'contact' => 'Salva',
+            'phone' => '42423424'
+        ]);
+
+        $this->assertDatabaseHas('color_size', [
+            'color_id' => $product->colors()->first()->id,
+            'size_id' => $product->sizes()->first()->id,
+            'quantity' => $product->quantity - 1
+        ]);
+    }
+
+    /** @test */
+    public function the_stock_changes_when_creating_an_order_including_color_product(){
+
+        $user = $this->createUser();
+        $product = $this->createColorProduct();
+        $this->actingAs($user);
+        Livewire::test(AddCartItemColor::class, ['product' => $product, 'qty' => 3])
+            ->set('options', ['color_id' => $product->colors()->first()->id])
+            ->call('addItem', $product);
+
+        Livewire::test(CreateOrder::class, [
+            'envio_type' => 1,
+            'contact' => 'Salva',
+            'phone' => '42423424'
+        ])
+            ->assertSee($product->name)
+            ->call('create_order');
+
+        $this->assertDatabaseHas('orders', [
+            'user_id' => $user->id,
+            'envio_type' => 1,
+            'contact' => 'Salva',
+            'phone' => '42423424'
+        ]);
+
+        $this->assertDatabaseHas('color_product', [
+            'color_id' => $product->colors()->first()->id,
+            'quantity' => $product->quantity - 3
+        ]);
+
+    }
+    //Corresponde al cierre del ejercicio 4 /\
+}

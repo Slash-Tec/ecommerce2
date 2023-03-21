@@ -4,3 +4,5 @@ contraseña
 Salva es admin
 salva@test.com
 123
+
+Es posible que haya algo de codigo que no habia en tu proyecto debido a que intenté aplicar las imagenes, lo cual no parece haber funcionado pero que es solo eso.
