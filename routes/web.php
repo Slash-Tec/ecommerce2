@@ -39,3 +39,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('orders/{order}/payment', PaymentOrder::class)->name('orders.payment');
 
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
