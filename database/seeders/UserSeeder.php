@@ -18,15 +18,10 @@ class UserSeeder extends Seeder
         $role = Role::create(['name' => 'admin']);
 
         User::factory()->create([
-            'name' => 'Salvador Céspedes',
-            'email' => 'salva@test.com',
-            'password' => bcrypt('123'),
+            'name' => 'Carlos Abrisqueta',
+            'email' => 'carlos@test.com',
         ])->assignRole('admin');
+
         User::factory(100)->create();
-        User::factory()->create([
-            'name' => 'Prueba',
-            'email' => 'prueba@gmail.es',
-            'password' => bcrypt('contraseña'),
-        ]);
     }
 }
